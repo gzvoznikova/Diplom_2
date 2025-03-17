@@ -1,5 +1,5 @@
 from conftest import *
-from data import DataUser
+from data import DataUser, Errors
 import allure
 import requests
 
@@ -10,7 +10,7 @@ class TestLoginUsers:
             'email': DataUser.email,
             'password': DataUser.password
         }
-        response = requests.post(Url.url_user_login, data=payload)
+        response = requests.post(Url.URL_USER_LOGIN, data=payload)
         assert response.status_code == 200
         assert response.json()['success'] is True
         assert 'accessToken' in response.json().keys()
@@ -22,9 +22,9 @@ class TestLoginUsers:
             'email': DataUser.random_email,
             'password': DataUser.password
         }
-        response = requests.post(Url.url_user_login, data=payload)
+        response = requests.post(Url.URL_USER_LOGIN, data=payload)
         assert response.status_code == 401
-        assert response.json() == {"success": False, "message": "email or password are incorrect"}
+        assert response.json().get("message") == Errors.login_users_401_message
 
     @allure.title('Проверка авторизации с неверным паролем')
     def test_auth_invalid_user_success(self):
@@ -32,7 +32,8 @@ class TestLoginUsers:
             'email': DataUser.email,
             'password': DataUser.random_password
         }
-        response = requests.post(Url.url_user_login, data=payload)
+        response = requests.post(Url.URL_USER_LOGIN, data=payload)
         assert response.status_code == 401
-        assert response.json() == {"success": False, "message": "email or password are incorrect"}
+        assert response.json().get("message") == Errors.login_users_401_message
+
 

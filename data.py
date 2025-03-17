@@ -21,3 +21,9 @@ class DataIngredient:
     burger2 = ['61c0c5a71d1f82001bdaaa79', '61c0c5a71d1f82001bdaaa7a']
 
     invalid_hash_ing = "611111b41abdacab0026a733c6"
+
+class Errors:
+    create_order_400_message = 'Ingredient ids must be provided'
+    create_users_403_message = 'User already exists'
+    login_users_401_message = "email or password are incorrect"
+    order_users_401_message = 'You should be authorised'

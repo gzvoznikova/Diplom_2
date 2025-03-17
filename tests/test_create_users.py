@@ -1,6 +1,6 @@
 import allure
 import requests
-from data import DataUser
+from data import DataUser, Errors
 from urls import Url
 
 class TestsCreateUsers:
@@ -11,7 +11,7 @@ class TestsCreateUsers:
             'name': DataUser.random_name,
             'password': DataUser.random_password
         }
-        response = requests.post(Url.url_user_create, data=payload)
+        response = requests.post(Url.URL_USER_CREATE, data=payload)
         assert response.status_code == 200
         assert response.json()['success'] is True
         assert response.json()['user']['email'] == payload['email']
@@ -24,9 +24,9 @@ class TestsCreateUsers:
             'password': DataUser.random_password,
             'name': DataUser.random_name
         }
-        response = requests.post(Url.url_user_create, data=payload)
+        response = requests.post(Url.URL_USER_CREATE, data=payload)
         assert response.status_code == 403
-        assert response.json() == {'success': False, 'message': 'User already exists'}
+        assert response.json().get("message") == Errors.create_users_403_message
 
     @allure.title('Проверка ответа регистрации с пустым email')
     def test_create_user_with_empty_email_failed(self):
@@ -35,6 +35,6 @@ class TestsCreateUsers:
             'password': DataUser.random_password,
             'name': DataUser.random_name
         }
-        response = requests.post(Url.url_user_create, data=payload)
+        response = requests.post(Url.URL_USER_CREATE, data=payload)
         assert (response.status_code == 403 and response.json() ==
                 {'success': False, 'message': 'Email, password and name are required fields'})

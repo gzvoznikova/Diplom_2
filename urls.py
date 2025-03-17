@@ -1,10 +1,10 @@
 class Url:
-    base_url = 'https://stellarburgers.nomoreparties.site'
-    url_user_create = f'{base_url}/api/auth/register'
-    url_user_login = f'{base_url}/api/auth/login'
-    url_user_update = f'{base_url}/api/auth/user'
-    url_user_delete = f'{base_url}/api/auth/user'
-    url_order_create = f'{base_url}/api/orders'
-    url_user_orders = f'{base_url}/api/orders'
+    BASE_URL = 'https://stellarburgers.nomoreparties.site'
+    URL_USER_CREATE = f'{BASE_URL}/api/auth/register'
+    URL_USER_LOGIN = f'{BASE_URL}/api/auth/login'
+    URL_USER_UPDATE = f'{BASE_URL}/api/auth/user'
+    URL_USER_DELETE = f'{BASE_URL}/api/auth/user'
+    URL_ORDER_CREATE = f'{BASE_URL}/api/orders'
+    URL_USER_ORDERS = f'{BASE_URL}/api/orders'
 
     headers = {'Content-Type': 'application/json'}
